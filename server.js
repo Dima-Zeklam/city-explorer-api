@@ -10,36 +10,51 @@ const PORT = process.env.PORT || 3001;
 server.use(cors());
 
 
-server.listen(PORT, () => {
-    console.log('Lisining to the port ' + PORT);
-});
 
 server.get('/', (req, res) => {
     res.send('no error, you in home page');
 
 });
 
+class forcast {
+    constructor(item) {
+        this.date = item.valid_date;
+        this.description = item.weather.description;
+ 
+    }
+}
 
-// server.get('/weather', (req, res) => {
-//     res.send('set the city name');
-// });
+
 
 server.get('/weather', (req, res) => {
-    try {
-        
-   
-    let cityName = req.query.city;
+
+
+//localhost:3001/weather?searchQuery=amman&lat=31&lon=35
+    let cityName = req.query.searchQuery;
+    let lat = req.query.lat;
+    let lon = req.query.lon;
     let weatherData = weather.find(item => {
         if (item.city_name.toLowerCase() === cityName.toLowerCase())
             return item;
-            });
-       console.log(weatherData.city_name);
+    });
+    console.log('wetherData is ',weatherData);
+    try {
+        let forcastArr = weatherData.data.map(ele => {
+            return new forcast(ele);
+        })
+        console.log(forcastArr);
+        res.send(forcastArr);
+    } catch (error) {
+        return res.status(500).send('this city is not found');
+    }
+});
 
-    //    if(weatherData.city_name.toLowerCase !== 'amman' ||weatherData.city_name.toLowerCase !== 'paris')
-    //    return res.status(404).send('not found');
-    //    else
-    res.send(weatherData);
-} catch (error) {
-    return res.status(500).send('this city is not found');
-}
+
+server.get('*', (req, res) => {
+    res.status(400).send(' not found');
+
+});
+
+server.listen(PORT, () => {
+    console.log('Lisining to the port ' + PORT);
 });
