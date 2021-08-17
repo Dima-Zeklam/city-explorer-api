@@ -51,7 +51,7 @@ server.get('/weather', (req, res) => {
 
 
 server.get('*', (req, res) => {
-    res.status(400).send(' not found');
+    res.status(400).send('error: Something went wrong.');
 
 });
 
