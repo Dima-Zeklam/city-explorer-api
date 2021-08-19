@@ -2,19 +2,7 @@
 
 const axios = require('axios');
 
-class movie {
-    constructor(dataItem) {
-        this.title = dataItem.title;
-        this.overview = dataItem.overview;
-        this.average_votes = dataItem.vote_average;
-        this.total_votes = dataItem.vote_count;
-        // this.image_url = 'https://image.tmdb.org/t/p/w500' ;
-        this.popularity = dataItem.popularity;
-        this.released_on = dataItem.release_date;
-        this.poster_path = dataItem.poster_path;
 
-    }
-}
 
 let getMovieData = (req, res) => {
 
@@ -25,7 +13,7 @@ let getMovieData = (req, res) => {
     let cityMovieName = req.query.city;
     console.log('cityName is ', cityMovieName);
     let movieUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${cityMovieName}`;
-    try {
+    // try {
         axios.get(movieUrl).then(ele => {
             let movieData = ele.data.results.map(item => {
 
@@ -40,8 +28,22 @@ let getMovieData = (req, res) => {
 
 
 
-    } catch (error) {
-        return res.status(404).send('not found');
+    // } catch (error) {
+    //     return res.status(404).send('not found');
+    // }
+
+    class movie {
+        constructor(dataItem) {
+            this.title = dataItem.title;
+            this.overview = dataItem.overview;
+            this.average_votes = dataItem.vote_average;
+            this.total_votes = dataItem.vote_count;
+             this.image_url = `https://image.tmdb.org/t/p/w500${dataItem.poster_path}` ;
+            this.popularity = dataItem.popularity;
+            this.released_on = dataItem.release_date;
+           
+    
+        }
     }
 }
 
