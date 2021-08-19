@@ -12,10 +12,10 @@ const PORT = process.env.PORT;
 server.use(cors());
 
 
+
 function homePage(req, res) {
     res.send('no error, you in home page');
 
-}
 
 
 class forcast {
@@ -25,6 +25,7 @@ class forcast {
 
     }
 }
+
 
 class movie {
     constructor(dataItem) {
@@ -39,8 +40,10 @@ class movie {
     }
 }
 
+
 console.log(process.env.WEATHER_API_KEY);
 let getWetherData = (req, res) => {
+
 
     //https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&city=amman
     //localhost:3002/weather?city=amman
@@ -51,6 +54,7 @@ let getWetherData = (req, res) => {
     // let lon = req.query.lon;
     console.log(cityName);
     let WitherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&days=7&lat=31.9539&lon=35.9106&city=${cityName}`;
+
     try {
         axios.get(WitherUrl).then(item => {
             let weatherData = item.data.data.map(element => {
@@ -69,6 +73,7 @@ let getWetherData = (req, res) => {
 
 let getMovieData = (req, res) => {
 
+
     //https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&query=${cityName}
 //https://api.themoviedb.org/3/search/movie?api_key=3e93ed962f0f458c5c241108f065a8ec&query=amman
 
@@ -86,6 +91,7 @@ let getMovieData = (req, res) => {
 
             console.log('movie is ', movieData);
         });
+
 
 
 
