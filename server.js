@@ -5,7 +5,7 @@ const express = require('express');
 
 const cors = require('cors');
 const getWetherData = require('./modules/weather.js');
-const getMovieData = require('./modules/movies.js');
+const getMovieData = require('./modules/movie.js');
 // const weather = require('./data/weather.json');
 
 
