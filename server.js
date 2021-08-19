@@ -15,7 +15,7 @@ server.use(cors());
 
 function homePage(req, res) {
     res.send('no error, you in home page');
-
+}
 
 
 class forcast {
