@@ -28,7 +28,7 @@ let getMovieData = (req, res) => {
     try {
         axios.get(movieUrl).then(ele => {
             let movieData = ele.data.results.map(item => {
-          
+          if(item !== null)
                     return new movie(item);
 
             })
